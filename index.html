@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#151d2d" />
+    <meta name="description" content="Mente Mapa: uma experiência interativa para explorar ideias e conexões." />
+    <title>Mente Mapa — pensamento em movimento</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#inicio" aria-label="Mente Mapa, voltar ao início">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>mente<span>mapa</span></span>
+        </a>
+        <div class="topbar-actions">
+          <p class="status"><span aria-hidden="true"></span>Exploração ativa</p>
+          <button class="secondary-button" id="resetView" type="button" title="Restaurar visualização inicial">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>
+            <span>Resetar mapa</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="hero" id="inicio" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">MAPA MENTAL INTERATIVO</p>
+          <h1 id="page-title">Ideias conectadas.<br /><em>Clareza em movimento.</em></h1>
+        </div>
+        <p class="hero-copy">Navegue pelo mapa para descobrir como uma pergunta se transforma em uma resposta clara, útil e humana.</p>
+      </section>
+
+      <section class="workspace" aria-label="Área de exploração do mapa mental">
+        <div class="map-card">
+          <div class="map-toolbar">
+            <div class="toolbar-title"><span class="live-dot" aria-hidden="true"></span><strong>Mapa de pensamento</strong><span id="nodeCount">9 conexões</span></div>
+            <div class="zoom-controls" aria-label="Controles de zoom">
+              <button id="zoomOut" type="button" aria-label="Diminuir zoom">−</button>
+              <output id="zoomLevel" aria-live="polite">100%</output>
+              <button id="zoomIn" type="button" aria-label="Aumentar zoom">+</button>
+            </div>
+          </div>
+          <div class="canvas" id="canvas" tabindex="0" aria-label="Mapa navegável. Arraste para mover, use a roda do mouse para aplicar zoom e selecione um nó para ver seus detalhes.">
+            <div class="constellation" id="constellation">
+              <svg class="connections" viewBox="0 0 1200 680" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M586 347 C485 330 442 213 324 163 M586 347 C490 377 434 484 303 521 M614 347 C726 316 755 205 878 173 M614 372 C711 409 741 493 854 529" />
+                <path d="M286 153 C202 144 150 190 117 258 M280 535 C195 555 149 515 101 460 M916 164 C1004 132 1050 183 1095 253 M892 541 C989 571 1052 527 1103 462" />
+              </svg>
+              <button class="node root is-selected" data-node="root" type="button" aria-pressed="true" style="--x:50%;--y:51%"><span class="halo"></span><strong>COMPREENSÃO</strong><small>O ponto de partida</small></button>
+              <button class="node coral" data-node="intent" type="button" aria-pressed="false" style="--x:26%;--y:24%"><span>01</span><strong>Intenção</strong><small>o que se quer alcançar</small></button>
+              <button class="node mint" data-node="context" type="button" aria-pressed="false" style="--x:76%;--y:26%"><span>02</span><strong>Contexto</strong><small>o cenário da pergunta</small></button>
+              <button class="node violet" data-node="strategy" type="button" aria-pressed="false" style="--x:24%;--y:76%"><span>03</span><strong>Estratégia</strong><small>o melhor caminho</small></button>
+              <button class="node yellow" data-node="delivery" type="button" aria-pressed="false" style="--x:74%;--y:77%"><span>04</span><strong>Entrega</strong><small>clareza em ação</small></button>
+              <button class="node tiny coral" data-node="language" type="button" aria-pressed="false" style="--x:10%;--y:39%">linguagem</button>
+              <button class="node tiny violet" data-node="review" type="button" aria-pressed="false" style="--x:8%;--y:68%">revisão</button>
+              <button class="node tiny mint" data-node="sources" type="button" aria-pressed="false" style="--x:92%;--y:38%">fontes</button>
+              <button class="node tiny yellow" data-node="action" type="button" aria-pressed="false" style="--x:92%;--y:68%">próxima ação</button>
+            </div>
+            <div class="map-hint" id="mapHint"><kbd>arraste</kbd><span>para mover</span><i>·</i><kbd>scroll</kbd><span>para zoom</span></div>
+          </div>
+        </div>
+
+        <aside class="detail-card" id="detailCard" aria-live="polite" aria-labelledby="detailTitle">
+          <div class="detail-topline"><p class="eyebrow" id="detailLabel">NÓ CENTRAL</p><span class="step-indicator" id="detailStep">01 / 09</span></div>
+          <h2 id="detailTitle">Compreensão</h2>
+          <p id="detailText">Antes de criar qualquer resposta, tudo começa aqui: entender a intenção, o contexto e o resultado que realmente importa.</p>
+          <div class="detail-list" id="detailList"><span>identificar objetivo</span><span>encontrar conexões</span><span>definir prioridade</span></div>
+          <div class="detail-footer"><span>Selecione outro nó para continuar</span><span aria-hidden="true">↗</span></div>
+        </aside>
+      </section>
+
+      <footer>Feito para explorar conexões, uma ideia de cada vez.</footer>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
