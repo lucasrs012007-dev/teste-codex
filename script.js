@@ -16,15 +16,26 @@ const nodeData = {
   action: { label: 'SATÉLITE', step: '09 / 09', title: 'Próxima ação', text: 'Uma boa entrega deixa claro o que fazer agora — e abre espaço para a próxima pergunta.', tags: ['decidir', 'executar', 'evoluir'] }
 };
 
+Object.assign(nodeData.root, { related: ['intent', 'context', 'strategy', 'delivery'] });
+Object.assign(nodeData.intent, { related: ['root', 'language'] });
+Object.assign(nodeData.context, { related: ['root', 'sources'] });
+Object.assign(nodeData.strategy, { related: ['root', 'review'] });
+Object.assign(nodeData.delivery, { related: ['root', 'action'] });
+Object.assign(nodeData.language, { related: ['intent'] });
+Object.assign(nodeData.review, { related: ['strategy'] });
+Object.assign(nodeData.sources, { related: ['context'] });
+Object.assign(nodeData.action, { related: ['delivery'] });
+
 const canvas = document.querySelector('#canvas');
 const graph = document.querySelector('#constellation');
 const zoomLevel = document.querySelector('#zoomLevel');
 const detail = {
   card: document.querySelector('#detailCard'), label: document.querySelector('#detailLabel'),
   step: document.querySelector('#detailStep'), title: document.querySelector('#detailTitle'),
-  text: document.querySelector('#detailText'), list: document.querySelector('#detailList')
+  text: document.querySelector('#detailText'), list: document.querySelector('#detailList'), related: document.querySelector('#relatedList')
 };
 const nodeButtons = [...document.querySelectorAll('.node')];
+const connectionPaths = [...document.querySelectorAll('[data-connection]')];
 let state = { zoom: 1, panX: 0, panY: 0, isDragging: false, pointerOrigin: null };
 
 function initialView() {
@@ -66,6 +77,10 @@ function updateDetails(id) {
     button.classList.toggle('is-selected', selected);
     button.setAttribute('aria-pressed', String(selected));
   });
+  connectionPaths.forEach((path) => {
+    const [start, end] = path.dataset.connection.split('-');
+    path.classList.toggle('is-related', start === id || end === id);
+  });
   detail.card.classList.add('is-updating');
   window.setTimeout(() => {
     detail.label.textContent = data.label;
@@ -75,6 +90,15 @@ function updateDetails(id) {
     detail.list.replaceChildren(...data.tags.map((tag) => {
       const item = document.createElement('span');
       item.textContent = tag;
+      return item;
+    }));
+    detail.related.replaceChildren(...data.related.map((relatedId) => {
+      const related = nodeData[relatedId];
+      const item = document.createElement('button');
+      item.type = 'button';
+      item.textContent = related.title;
+      item.setAttribute('aria-label', `Ver conceito relacionado: ${related.title}`);
+      item.addEventListener('click', () => updateDetails(relatedId));
       return item;
     }));
     detail.card.classList.remove('is-updating');
@@ -122,4 +146,5 @@ window.addEventListener('resize', () => {
   render();
 });
 
+updateDetails('root');
 resetView();

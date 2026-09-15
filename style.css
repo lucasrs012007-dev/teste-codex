@@ -33,3 +33,14 @@ footer { padding: 28px 4px 0; color: #858e9b; font-size: 11px; text-align: cente
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
 @media (max-width: 900px) { .workspace { grid-template-columns: 1fr; }.detail-card { min-height: 225px; }.detail-card h2 { margin-top: 17px; }.detail-list { grid-template-columns: repeat(3, 1fr); margin-top: 17px; }.detail-footer { margin-top: 18px; }.hero { padding-top: 55px; } }
 @media (max-width: 650px) { .app-shell { padding: 16px 16px 27px; }.status { display: none; }.secondary-button span { display: none; }.secondary-button { width: 36px; justify-content: center; padding: 0; }.hero { display: block; padding: 48px 2px 28px; }.hero-copy { max-width: 340px; margin-top: 18px; }.map-toolbar { padding: 0 12px; }.toolbar-title span:not(.live-dot) { display: none; }.canvas { height: 475px; }.node:not(.root):not(.tiny) { width: 142px; min-height: 88px; padding: 12px; }.node.tiny { display: none; }.node.root { width: 145px; height: 145px; }.map-hint { left: 12px; right: auto; }.map-hint span, .map-hint i { display: none; }.detail-card { padding: 20px; }.detail-list { grid-template-columns: 1fr; }.detail-footer { font-size: 10px; } }
+
+/* Estado de conexão: o JavaScript aplica esta classe aos caminhos ligados ao nó ativo. */
+.connections path { opacity: .32; transition: opacity .25s ease, stroke .25s ease, stroke-width .25s ease; }
+.connections path.is-related { stroke: #e67866; stroke-width: 2.2; stroke-dasharray: none; opacity: 1; filter: drop-shadow(0 2px 2px rgba(230, 120, 102, .24)); }
+.detail-section, .related-section { margin-top: 20px; }
+.detail-section h3, .related-section h3 { margin: 0 0 8px; color: #7c8594; font: 700 9px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .1em; text-transform: uppercase; }
+.detail-section .detail-list { margin-top: 0; }
+.detail-section .detail-list span { padding: 8px 10px; font-size: 10px; }
+.related-list { display: flex; flex-wrap: wrap; gap: 7px; }
+.related-list button { padding: 7px 9px; border: 1px solid #d9e5e1; border-radius: 999px; background: #f5faf8; color: #356e5d; font-size: 10px; font-weight: 700; cursor: pointer; transition: background .18s ease, transform .18s ease; }
+.related-list button:hover { background: #e8f5ef; transform: translateY(-1px); }
